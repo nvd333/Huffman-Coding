@@ -3,10 +3,7 @@ package org.nirvana.huffman.Decompression;
 import org.nirvana.BitIO.BitInputStream;
 import org.nirvana.utils.TreeNode;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.MissingResourceException;
+import java.io.*;
 import java.util.Stack;
 
 public class FileDecoderHandler implements decoderFileIO{
@@ -68,7 +65,7 @@ public class FileDecoderHandler implements decoderFileIO{
     }
 
     @Override
-    public void writeText(OutputStream out,TreeNode root) throws Exception {
+    public void writeText(OutputStream out, TreeNode root) throws Exception {
         int c;
         if(root==null && noOfCharacters!=0)
             throw new IllegalStateException("ERROR: Binary Tree is null");

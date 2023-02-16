@@ -1,17 +1,17 @@
 package org.nirvana.huffman.Compression;
 
-import org.nirvana.huffman.HuffmanCodeTree;
-
 import java.io.InputStream;
+import java.util.HashMap;
 
 
 public interface encoderFileIO {
     /**
      * Writes to the Stream
      *
-     * @param huffmanCodeTree which contains HuffmanCodes for each character
+     * @param binString contains String Representation of Tree
+     * @param huffCodeSet contains Huffman Code Set
      * @param in    InputStream
      * @throws Exception if error is encountered
      */
-    void writeText(HuffmanCodeTree huffmanCodeTree, InputStream in) throws Exception;
+    void writeText(String binString, HashMap<?,String> huffCodeSet, InputStream in) throws Exception;
 }

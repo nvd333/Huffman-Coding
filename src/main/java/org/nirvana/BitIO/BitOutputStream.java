@@ -1,16 +1,17 @@
 package org.nirvana.BitIO;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
 public class BitOutputStream implements BitOutputStreamable,AutoCloseable{
-    protected OutputStream out;
+    protected BufferedOutputStream out;
     protected int buffer;
     protected int bufferBitCount;
 
     public BitOutputStream(OutputStream out){
         if(out == null) throw new NullPointerException("ERROR: OutputStream is Null");
-        this.out = out;
+        this.out = new BufferedOutputStream(out);
         this.bufferBitCount = 0;
     }
 
@@ -61,6 +62,10 @@ public class BitOutputStream implements BitOutputStreamable,AutoCloseable{
     {
         for(int j = 0; j < bitStr.length(); j ++)
             this.write(Character.getNumericValue(bitStr.charAt(j)));
+    }
+
+    public void write(byte[] bytes) throws IOException {
+        out.write(bytes);
     }
 
     /**

@@ -3,7 +3,7 @@ package org.nirvana.utils;
 import javax.naming.SizeLimitExceededException;
 import java.util.Arrays;
 
-public class Frequencies implements FrequencyMap{
+public class Frequencies implements FrequencyMap<Integer>{
     int[] freqArray;
     public static int CHARACTER_TABLE_SIZE = 256;
     
@@ -15,13 +15,14 @@ public class Frequencies implements FrequencyMap{
 
 
     @Override
-    public int getFrequency(int index) {
+    public int getFrequency(Integer index) {
+        isCharacter(index);
         return freqArray[index];
     }
 
 
     @Override
-    public void increment(int ascii_value) throws SizeLimitExceededException {
+    public void increment(Integer ascii_value) throws SizeLimitExceededException {
         if(this.isCharacter(ascii_value))
             if(freqArray[ascii_value] == Integer.MAX_VALUE)
                 throw new SizeLimitExceededException("ERROR: Maximum Limit Reached");

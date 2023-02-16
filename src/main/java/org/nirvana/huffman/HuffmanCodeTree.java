@@ -31,8 +31,8 @@ public class HuffmanCodeTree implements CodeTree {
         if (node != null) {
             if(node.isLeaf())
                 HuffmanCodeSet.put( node.getAsciiTag(), nodeCodeString);
-            generateCode(node.getLeft(), nodeCodeString+ "" + 0);
-            generateCode(node.getRight(), nodeCodeString + "" + 1);
+            generateCode(node.getLeft(), nodeCodeString+"0");
+            generateCode(node.getRight(), nodeCodeString + "1");
         }
     }
 
@@ -99,11 +99,10 @@ public class HuffmanCodeTree implements CodeTree {
         double term;
         double numerator = 0;
         double denominator = 0;
-        for(int i : HuffmanCodeSet.keySet())
-        {
-            if(!(i>=0 && i<=255))
+        for(int i : HuffmanCodeSet.keySet()) {
+            if (!(i >= 0 && i <= 255))
                 continue;
-            term = HuffmanCodeSet.get(i).length()  * freq[i];
+            term = HuffmanCodeSet.get(i).length() * freq[i];
             numerator += term;
             denominator += freq[i];
         }
