@@ -1,36 +1,32 @@
 package org.nirvana.huffman.Compression;
 
 import org.nirvana.BitIO.BitOutputStream;
-import org.nirvana.huffman.HuffmanCodeTree;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.HashMap;
 
 
 public class FileEncoderHandler implements encoderFileIO{
     int noOfCharacters;
     BitOutputStream bitOutStream;
-    public FileEncoderHandler(int noOfCharacters,OutputStream out)
+    public FileEncoderHandler(int noOfCharacters, OutputStream out)
     {
         this.noOfCharacters = noOfCharacters;
         this.bitOutStream = new BitOutputStream(out);
     }
 
     /**
-     * Writes to the stream
      *
-     * @param codes which contains HuffmanCodes for each character
+     * @param TreeBitString contains String Representation of Tree
+     * @param huffCodeSet contains Huffman Code Set
      * @param in    InputStream
-     * @throws Exception if error occurs
+     * @throws Exception
      */
     @Override
-    public void writeText(HuffmanCodeTree codes, InputStream in) throws Exception {
-        String TreeBitString = codes.getBinaryTreeAsBitString();
+    public void writeText(String TreeBitString,HashMap<?,String> huffCodeSet, InputStream in) throws Exception {
         writeHeaders(TreeBitString);
         writeHuffmanTree(TreeBitString);
-        writePlainText(codes.getHuffmanCodeSet(),in);
+        writePlainText((HashMap<Integer, String>) huffCodeSet,in);
         bitOutStream.close();
     }
 

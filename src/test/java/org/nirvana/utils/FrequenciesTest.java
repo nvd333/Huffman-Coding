@@ -1,11 +1,8 @@
 package org.nirvana.utils;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -13,8 +10,6 @@ import javax.naming.SizeLimitExceededException;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class FrequenciesTest {

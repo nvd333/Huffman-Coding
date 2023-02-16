@@ -31,8 +31,8 @@ public class HuffmanCodeTree implements CodeTree {
         if (node != null) {
             if(node.isLeaf())
                 HuffmanCodeSet.put( node.getAsciiTag(), nodeCodeString);
-            generateCode(node.getLeft(), nodeCodeString+ "" + 0);
-            generateCode(node.getRight(), nodeCodeString + "" + 1);
+            generateCode(node.getLeft(), nodeCodeString+"0");
+            generateCode(node.getRight(), nodeCodeString + "1");
         }
     }
 

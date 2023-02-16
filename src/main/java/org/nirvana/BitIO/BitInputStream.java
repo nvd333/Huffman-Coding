@@ -1,18 +1,19 @@
 package org.nirvana.BitIO;
 
+import java.io.BufferedInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class BitInputStream implements BitInputStreamable,AutoCloseable{
-    protected InputStream in;
+    protected BufferedInputStream in;
     protected int buffer;
     protected int bufferBitCount;
 
     public BitInputStream(InputStream in)
     {
         if(in == null) throw new NullPointerException("ERROR: InputStream is Null");
-        this.in = in;
+        this.in = new BufferedInputStream(in);
         this.bufferBitCount = 0;
     }
 
@@ -36,7 +37,7 @@ public class BitInputStream implements BitInputStreamable,AutoCloseable{
     }
 
     /**
-     * Reads some bits
+     * Returns a single bit by maintaining a buffer
      *
      * @return an integer whose lower bits are read from stream which is either 0 or 1
      * @throws EOFException if no data available from the InputStream
@@ -67,15 +68,15 @@ public class BitInputStream implements BitInputStreamable,AutoCloseable{
      * @throws EOFException if End of File is encountered
      */
     public String read(int numbits) throws IOException {
-        String bitString = "";
+        StringBuilder bitString = new StringBuilder();
         while(numbits!=0) {
             int c = this.read();
             numbits -= 1;
 
             if(c == -1)
                 throw new EOFException();
-            bitString += c;
+            bitString.append(c);
         }
-        return bitString;
+        return bitString.toString();
     }
 }

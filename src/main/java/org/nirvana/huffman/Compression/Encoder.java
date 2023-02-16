@@ -59,7 +59,7 @@ public class Encoder {
         int c;
         while ((c = in.read()) != -1) {
             numberOfCharactersRead++;
-            freqArray.increment((char) c);
+            freqArray.increment(c);
         }
         return freqArray;
     }

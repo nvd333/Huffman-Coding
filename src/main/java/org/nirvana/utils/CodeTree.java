@@ -18,7 +18,7 @@ public interface CodeTree {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append(getLabelling(root.label) + "(" + root.freq + ")");
+        sb.append(getLabelling(root.getAsciiTag()) + "(" + root.freq + ")");
 
         String pointerRight = "└──";
         String pointerLeft = (root.getRight() != null) ? "├──" : "└──";
@@ -43,7 +43,7 @@ public interface CodeTree {
             sb.append("\n");
             sb.append(padding);
             sb.append(pointer);
-            sb.append(getLabelling(node.label)+ "(" + node.freq + ")");
+            sb.append(getLabelling(node.getAsciiTag())+ "(" + node.freq + ")");
 
             StringBuilder paddingBuilder = new StringBuilder(padding);
             if (hasRightSibling) {

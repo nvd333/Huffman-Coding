@@ -6,15 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
-
-import static org.junit.Assert.*;
 
 public class BitInputStreamTest {
 
@@ -23,10 +18,6 @@ public class BitInputStreamTest {
     @Before
     public void setUp() throws Exception {
         buffer = new byte[]{(byte)0b00101010,(byte)0b11010110};
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test(expected = NullPointerException.class)

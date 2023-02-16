@@ -1,7 +1,6 @@
 package org.nirvana.huffman;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -22,7 +21,7 @@ public class HuffmanCodeTreeTest {
     public void huffTreeAsBitString_WhenGivenSingleNodeWhichIsNotLeaf() {
         TreeNode node = new TreeNode(null, null);
         HuffmanCodeTree huffmanCodeTree = new HuffmanCodeTree(node);
-        Assert.assertEquals("0", huffmanCodeTree.HuffTreeAsBitString(node));
+        Assert.assertEquals("100111110", huffmanCodeTree.HuffTreeAsBitString(node));
     }
 
     @ParameterizedTest
@@ -50,9 +49,7 @@ public class HuffmanCodeTreeTest {
     @Test
     public void PrintTree_WhenGivenATree(){
         TreeNode root = new TreeNode(new TreeNode(67,12),new TreeNode(121,19));
-        Assert.assertEquals("*(31)\n" +
-                "├──C(12)\n" +
-                "└──y(19)",HuffmanCodeTree.PrintTree(root));
+        Assert.assertEquals("*(31)\n├──C(12)\n└──y(19)",HuffmanCodeTree.PrintTree(root));
     }
 
 }

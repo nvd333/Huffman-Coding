@@ -1,8 +1,6 @@
 package org.nirvana.huffman.Compression;
 
-import org.hamcrest.core.IsNull;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,9 +9,7 @@ import org.nirvana.utils.TreeNode;
 
 import javax.naming.SizeLimitExceededException;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.PriorityQueue;
 
 import static org.junit.Assert.*;

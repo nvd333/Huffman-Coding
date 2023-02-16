@@ -1,18 +1,17 @@
 package org.nirvana.huffman.Compression;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.nirvana.huffman.HuffmanCodeTree;
-import org.nirvana.utils.TreeNode;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
@@ -24,15 +23,11 @@ public class FileEncoderHandlerTest {
     ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
     ByteArrayInputStream streamIn;
     byte[] buf;
-    TreeNode root = new TreeNode(null,null);
     @Mock
-    HuffmanCodeTree codes = new HuffmanCodeTree(root);
+    HuffmanCodeTree codes;
     @InjectMocks
-    FileEncoderHandler fileEncoderHandler = new FileEncoderHandler(1,byteOut);
+    FileEncoderHandler fileEncoderHandler = new FileEncoderHandler(1,new BufferedOutputStream(byteOut));
 
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void writeText_WhenASingleCharacterIsWritten() throws Exception {
@@ -42,9 +37,9 @@ public class FileEncoderHandlerTest {
         when(codes.getBinaryTreeAsBitString()).thenReturn("101000001");
         buf = new byte[]{(byte) 65,(byte) 65,(byte) 65};
         streamIn = new ByteArrayInputStream(buf);
-        fileEncoderHandler = new FileEncoderHandler(3,byteOut);
-        fileEncoderHandler.writeText(codes,streamIn);
+        fileEncoderHandler = new FileEncoderHandler(3,new BufferedOutputStream(byteOut));
+        fileEncoderHandler.writeText(codes.getBinaryTreeAsBitString(),codes.getHuffmanCodeSet(),new BufferedInputStream(streamIn));
         byte[] expected = new byte[]{0,(byte)-112,0,0,0,(byte) 58,(byte)8};
-        assertTrue(Arrays.equals(expected,byteOut.toByteArray()));
+        assertArrayEquals(expected, byteOut.toByteArray());
     }
 }

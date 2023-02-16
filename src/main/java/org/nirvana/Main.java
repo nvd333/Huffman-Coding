@@ -12,6 +12,7 @@ import java.nio.file.FileAlreadyExistsException;
 public class Main {
     public static void main(String[] args) throws Exception{
         long start = System.currentTimeMillis();
+        Runtime runtime = Runtime.getRuntime();
         double bitsOnFreq = 0;
 
         //check if minimum number of arguments are available for the program
@@ -37,7 +38,7 @@ public class Main {
 
                     fileHandler = new FileEncoderHandler(encoder.getNumberOfCharactersRead(), outBuf);
                     BufferedInputStream reader2 = new BufferedInputStream(new FileInputStream(ipFile));
-                    fileHandler.writeText(codeTree, reader2);
+                    fileHandler.writeText(codeTree.getBinaryTreeAsBitString(),codeTree.getHuffmanCodeSet(), reader2);
                 }
             }
             System.out.println("\nCompression Operation Completed...");
@@ -66,6 +67,8 @@ public class Main {
             System.out.println("Time Elapsed: " + (finish - start) + " ms\n");
             System.out.println("Input  file size    was " + ipFile.length() + " b");
             System.out.println("Output file size now is " + opFile.length() + " b");
+            System.out.println("Memory Allocated: " + (runtime.totalMemory()/(1024*1024)) + "Mb");
+            System.out.println("Memory Used     : " + ((runtime.totalMemory() - runtime.freeMemory())/(1024*1024)) + "Mb");
             long sizeIn = Integer.parseInt("" + ipFile.length());
             long sizeOut = Integer.parseInt("" + opFile.length());
             if (args[0].equals("-c") || args[0].equals("--compress")) {
