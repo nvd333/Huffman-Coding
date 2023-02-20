@@ -3,8 +3,6 @@ package org.nirvana.utils;
 public class TreeNode {
 
     static int uniqueID = 0;
-
-
     int freq;      // always positive
     String label;      // ASCII value corresponding to character
     private TreeNode left;
@@ -32,8 +30,10 @@ public class TreeNode {
      * @param left left Child Node
      * @param right right Child Node
      */
+
     public TreeNode(TreeNode left,TreeNode right)
     {
+
         this.label = String.valueOf(-++uniqueID);
         this.left = left;
         this.right = right;
