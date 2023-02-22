@@ -100,22 +100,14 @@ public class Encoder implements HuffmanBaseEncoder {
      */
     static class TreeNodeComparator implements Comparator<TreeNode> {
 
-        /* Compares two TreeNode objects
+        /**
+         *  Compares two TreeNode objects
          */
         @Override
         public int compare(TreeNode o1, TreeNode o2) {
-            if (o1.getFrequency() == o2.getFrequency()) {
+            if (o1.getFrequency() == o2.getFrequency())
                 return Integer.compare(o1.getAsciiTag(),o2.getAsciiTag());
-//                if (o1.getAsciiTag() == -1 && o2.getAsciiTag() != -1)
-//                    return 1;
-//                else if ((o1.getAsciiTag() != -1 && o2.getAsciiTag() == -1))
-//                    return -1;
-//                if (o1.getAsciiTag() > o2.getAsciiTag())
-//                    return 1;
-//                else
-//                    return -1;
-            } else
-                return o1.getFrequency() - o2.getFrequency();
+            return o1.getFrequency() - o2.getFrequency();
         }
     }
 }

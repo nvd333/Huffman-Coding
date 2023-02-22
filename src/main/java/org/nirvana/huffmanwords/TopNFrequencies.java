@@ -1,5 +1,6 @@
 package org.nirvana.huffmanwords;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.nirvana.huffmanwords.compression.WordEncoder;
 import org.nirvana.utils.TreeNode;
 
@@ -37,12 +38,9 @@ public class TopNFrequencies{
     public double calculateIdealSplit(HashMap<String,Integer> original) throws IOException {
         double[] best = new double[]{0.0,Integer.MAX_VALUE};
         double[] currentState = new double[]{0.0,Integer.MAX_VALUE};
+        //Map<String,Integer> bestFreqMap = null;
 
-        Object best1 = new Object(){
-            double[] best;
-            HashMap<String ,Integer> frequencyMap;
-        };
-        double temp = 3333;
+        double temp = 1000;
         double coolingRate = 0.33;
 
         while(temp>1)
@@ -57,6 +55,7 @@ public class TopNFrequencies{
             }
             if(currentState[1] < best[1]) {
                 best = currentState;
+                //bestFreqMap = (Map<String, Integer>) newFreqMap.clone();
             }
             temp = temp / (1 + coolingRate * temp);
         }
