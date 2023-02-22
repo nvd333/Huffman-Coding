@@ -2,7 +2,6 @@ package org.nirvana.utils;
 
 public class TreeNode {
 
-    static int uniqueID = 0;
     int freq;      // always positive
     String label;      // ASCII value corresponding to character
     private TreeNode left;
@@ -23,6 +22,7 @@ public class TreeNode {
         this.right = null;
     }
 
+
     /**
      * Constructor
      * Creates a Inner Node
@@ -34,7 +34,7 @@ public class TreeNode {
     public TreeNode(TreeNode left,TreeNode right)
     {
 
-        this.label = String.valueOf(-++uniqueID);
+        this.label = "";
         this.left = left;
         this.right = right;
 
@@ -60,6 +60,6 @@ public class TreeNode {
     public boolean isLeaf() {
         return (this.right == null && this.left == null);
     }
-    public void setLeftBranch(TreeNode left) {this.left = left;        if(left!=null) this.label = ""+-30;}
-    public void setRightBranch(TreeNode right){this.right = right;     if(left!=null) this.label = ""+-30;}
+    public void setLeftBranch(TreeNode left) {this.left = left;        if(left!=null) this.label = "";}
+    public void setRightBranch(TreeNode right){this.right = right;     if(left!=null) this.label = "";}
 }

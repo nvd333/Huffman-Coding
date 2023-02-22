@@ -1,7 +1,7 @@
 package org.nirvana.huffmanwords.decompression;
 
 import org.nirvana.bitIO.BitInputStream;
-import org.nirvana.huffmanwords.wordHuffmanCodeTree;
+import org.nirvana.huffmanwords.WordHuffmanCodeTree;
 import org.nirvana.utils.TreeNode;
 
 import java.io.*;
@@ -26,7 +26,7 @@ public class WordCodeFileDecoderHandler {
         for(int i = 0; i < length; i ++)
             bytes[i] = (byte) Integer.parseInt(bitInStream.read(8),2);
         ByteArrayInputStream byteArrayStream = new ByteArrayInputStream(bytes,0,length);
-        return wordHuffmanCodeTree.deserialize(new ObjectInputStream(byteArrayStream));
+        return WordHuffmanCodeTree.deserialize(new ObjectInputStream(byteArrayStream));
     }
 
     public HashMap<String, Integer> getBitTree2FrequencyMap(int length) throws IOException, ClassNotFoundException {

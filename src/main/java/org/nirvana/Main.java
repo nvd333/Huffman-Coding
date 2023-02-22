@@ -6,15 +6,14 @@ import org.nirvana.huffmanstatic.Decompression.FileDecoderHandler;
 import org.nirvana.huffmanstatic.HuffmanCodeTree;
 import org.nirvana.huffmanwords.TopNFrequencies;
 import org.nirvana.huffmanwords.compression.WordCodeFileEncodeHandler;
-import org.nirvana.huffmanwords.compression.wordEncoder;
+import org.nirvana.huffmanwords.compression.WordEncoder;
 import org.nirvana.huffmanwords.decompression.WordCodeFileDecoderHandler;
-import org.nirvana.huffmanwords.wordHuffmanCodeTree;
+import org.nirvana.huffmanwords.WordHuffmanCodeTree;
 import org.nirvana.utils.TreeNode;
 
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -55,22 +54,28 @@ public class Main {
             {
                 try (BufferedInputStream bufIn = new BufferedInputStream(new FileInputStream(ipFile))) {
                     try (BufferedOutputStream outBuf = new BufferedOutputStream(new FileOutputStream(opFile))) {
-                        wordEncoder woe = new wordEncoder();
+                        WordEncoder woe = new WordEncoder();
+                        HashMap<String,Integer> freqMap =(HashMap<String, Integer>) woe.generateFrequencyMap(bufIn);
                         //
                         TopNFrequencies topN = new TopNFrequencies();
-                        HashMap<?, Integer> hmap = topN.convert2TopN((HashMap<String, Integer>) woe.generateFrequencyMap(bufIn));
+                        double splitPercent = topN.calculateIdealSplit((HashMap<String, Integer>) freqMap);
+                        System.out.printf("Split Percent  : %.5f\n",splitPercent);
+
+                        HashMap<String, Integer> splitMap = (HashMap<String, Integer>) topN.convert2TopN(freqMap,splitPercent);
                         //HashMap<?,Integer> hmap = (HashMap<String,Integer>) woe.generateFrequencyMap(bufIn);
-                        woe.initQueue((Map<String, Integer>) hmap);
-                        TreeNode tr = woe.buildHuffmanTree();
-                        wordHuffmanCodeTree wodHuffmanCodeTree = new wordHuffmanCodeTree(tr);
+                        WordEncoder wordEncoder = new WordEncoder(splitMap);
+                        wordEncoder.initQueue(splitMap);
+                        TreeNode tr = wordEncoder.buildHuffmanTree();
+
+                        WordHuffmanCodeTree wodHuffmanCodeTree = new WordHuffmanCodeTree(tr);
                         HashMap<String, String> a = wodHuffmanCodeTree.getHuffmanCodeSet();
-                        bitsOnFreq = wodHuffmanCodeTree.avgCodeLength((HashMap<String, Integer>) hmap);
-                        WordCodeFileEncodeHandler fileEncodeHandler = new WordCodeFileEncodeHandler(woe.getNoOfWords(), outBuf);
+                        bitsOnFreq = wodHuffmanCodeTree.avgCodeLength(splitMap);
+                        WordCodeFileEncodeHandler fileEncodeHandler = new WordCodeFileEncodeHandler(wordEncoder.getNoOfWords(), outBuf);
                         BufferedInputStream buf2 = new BufferedInputStream(new FileInputStream(ipFile));
 
                         //fileEncodeHandler.writeText(wordHuffmanCodeTree.HuffTreeAsBitString(tr), a, buf2);
 //woe.getFreqMapAsBitString()
-                        fileEncodeHandler.writeText(woe.getFreqMapAsBitString((HashMap<String, Integer>) hmap), a, buf2);
+                        fileEncodeHandler.writeText(WordEncoder.getFreqMapAsBitString(splitMap), a, buf2);
 
                     }
                 }
@@ -97,10 +102,12 @@ public class Main {
                 try (BufferedInputStream bufIn = new BufferedInputStream(new FileInputStream(ipFile))) {
                     try (BufferedOutputStream outBuf = new BufferedOutputStream(new FileOutputStream(opFile))) {
                         WordCodeFileDecoderHandler fileDecoder = new WordCodeFileDecoderHandler(bufIn);
+
                         int bitStrLen = fileDecoder.readHeader();
                         HashMap<String,Integer> freqMap = fileDecoder.getBitTree2FrequencyMap(bitStrLen);
+
                         //
-                        wordEncoder wordEncoder = new wordEncoder(freqMap);
+                        WordEncoder wordEncoder = new WordEncoder(freqMap);
                         wordEncoder.initQueue(freqMap);
                         TreeNode root = wordEncoder.buildHuffmanTree();
                         //TreeNode root =fileDecoder.getBitTree2BinaryTree(bitStrLen);

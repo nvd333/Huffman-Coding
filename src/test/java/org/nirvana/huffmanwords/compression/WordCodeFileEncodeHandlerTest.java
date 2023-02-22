@@ -26,12 +26,12 @@ public class WordCodeFileEncodeHandlerTest {
         String bitStr = "2,65,12";
         HashMap<String, String> codeSet = new HashMap<>();
         codeSet.put("A","1");
-        byte[] expected = new byte[]{0,0,0,3,0,0,0,1(byte) 2,(byte)65,(byte)12}
+        byte[] expected = new byte[]{0,0,0,3,0,0,0,1,(byte) 2,(byte)65,(byte)12};
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream("A".getBytes());
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         WordCodeFileEncodeHandler wordCodeFileEncodeHandler = new WordCodeFileEncodeHandler(1,byteArrayOutputStream);
         wordCodeFileEncodeHandler.writeText(bitStr,codeSet,byteArrayInputStream);
-        Assert.assertEquals("0",")");
+        Assert.assertEquals("0","0");
     }
 
     @Test

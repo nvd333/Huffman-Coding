@@ -21,7 +21,7 @@ public class HuffmanCodeTreeTest {
     public void huffTreeAsBitString_WhenGivenSingleNodeWhichIsNotLeaf() {
         TreeNode node = new TreeNode(null, null);
         HuffmanCodeTree huffmanCodeTree = new HuffmanCodeTree(node);
-        Assert.assertEquals("100111110", huffmanCodeTree.HuffTreeAsBitString(node));
+        Assert.assertEquals("1111110111", huffmanCodeTree.HuffTreeAsBitString(node));
     }
 
     @ParameterizedTest

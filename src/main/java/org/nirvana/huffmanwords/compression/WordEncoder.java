@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.*;
 
-public class wordEncoder implements HuffmanBaseEncoder {
+public class WordEncoder implements HuffmanBaseEncoder {
 
     Queue<TreeNode> pq;
     HashMap<String,Integer> frequencyMap;
@@ -19,11 +19,11 @@ public class wordEncoder implements HuffmanBaseEncoder {
 
 
 
-    public wordEncoder(){
+    public WordEncoder(){
         pq = new PriorityQueue<>(new TreeComparator());
         noOfWords = 0;
     }
-    public wordEncoder(HashMap<?,?> FrequencyMap)
+    public WordEncoder(HashMap<?,?> FrequencyMap)
     {
         pq = new PriorityQueue<>(new TreeComparator());
         frequencyMap = (HashMap<String, Integer>) FrequencyMap;
@@ -62,7 +62,7 @@ public class wordEncoder implements HuffmanBaseEncoder {
         return freqMap.getWordFreqMap();
     }
 
-    public Queue<TreeNode> initQueue(Map<String,Integer> freqWordMap) throws SizeLimitExceededException, IOException {
+    public Queue<TreeNode> initQueue(Map<String,Integer> freqWordMap){
         //Map<String,Integer> freqWordMap = (Map<String, Integer>) generateFrequencyMap(br);
         if(freqWordMap.isEmpty()) pq.add(new TreeNode(null,null));
         this.noOfWords = 0;
@@ -71,9 +71,18 @@ public class wordEncoder implements HuffmanBaseEncoder {
             int freq = freqWordMap.get(word);
             this.noOfWords +=freq;
             TreeNode leaf = new TreeNode(word,freq);
-            pq.add(leaf);
+            this.pq.add(leaf);
         }
         return this.pq;
+    }
+
+    public TreeNode buildHuffmanTree(PriorityQueue pq1) {
+        while(pq1.size()>1) {
+            TreeNode left = (TreeNode) pq1.poll();
+            TreeNode right = (TreeNode) pq1.poll();
+            pq1.add(new TreeNode(left,right));
+        }
+        return (TreeNode) pq1.poll();
     }
 
     public TreeNode buildHuffmanTree() {
@@ -82,10 +91,10 @@ public class wordEncoder implements HuffmanBaseEncoder {
             TreeNode right = pq.poll();
             pq.add(new TreeNode(left,right));
         }
-        return pq.poll();
+        return this.pq.poll();
     }
 
-    public String getFreqMapAsBitString(HashMap<String,Integer> frequencyMap) throws IOException {
+    public static String getFreqMapAsBitString(HashMap<String,Integer> frequencyMap) throws IOException {
         ByteArrayOutputStream byteOut =new ByteArrayOutputStream();
         ObjectOutputStream obj = new ObjectOutputStream(byteOut);
         obj.writeObject(frequencyMap);
@@ -101,7 +110,7 @@ public class wordEncoder implements HuffmanBaseEncoder {
 
 
 
-    private static class TreeComparator implements Comparator<TreeNode> {
+    public static class TreeComparator implements Comparator<TreeNode> {
         /**
          * Compares this object with the specified object for order.  Returns a
          * negative integer, zero, or a positive integer as this object is less

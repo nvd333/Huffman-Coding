@@ -8,13 +8,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class wordHuffmanCodeTree{
-
+public class WordHuffmanCodeTree {
 
     HashMap<String,String> HuffmanCodeSet;
-
-
-    public wordHuffmanCodeTree(TreeNode root)
+    public WordHuffmanCodeTree(TreeNode root)
     {
         HuffmanCodeSet = new HashMap<>();
         if(root == null) throw new NullPointerException("ERROR: Tree is Null");

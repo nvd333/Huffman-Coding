@@ -44,13 +44,7 @@ public class WordCodeFileEncodeHandler implements encoderFileIO {
         writePlainText((HashMap<Integer, String>) huffCodeSet,in);
         bitOutStream.close();
     }
-    public static long nearestPowerOf2(long N)
-    {
-        long a = (int)(Math.log(N) / Math.log(2));
-        if (Math.pow(2, a) == N)
-            return N;
-        return (long) Math.pow(2, a + 1);
-    }
+
     private void writePlainText(HashMap<Integer,String> huffCodeSet,InputStream in) throws IOException {
         int c;
         StringBuilder word = new StringBuilder();
