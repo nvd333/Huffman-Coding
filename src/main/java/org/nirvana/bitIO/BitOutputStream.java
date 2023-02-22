@@ -2,10 +2,12 @@ package org.nirvana.bitIO;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 public class BitOutputStream implements BitOutputStreamable,AutoCloseable{
     protected BufferedOutputStream out;
+    ObjectOutputStream objectOutputStream = null;
     protected int buffer;
     protected int bufferBitCount;
 
@@ -68,6 +70,13 @@ public class BitOutputStream implements BitOutputStreamable,AutoCloseable{
         out.write(bytes);
     }
 
+
+    public void write(Object obj) throws IOException{
+        objectOutputStream = new ObjectOutputStream(out);
+        objectOutputStream.writeObject(obj);
+        objectOutputStream.flush();
+    }
+
     /**
      * Closes this resource, relinquishing any underlying resources.
      * This method is invoked automatically on objects managed by the
@@ -79,6 +88,8 @@ public class BitOutputStream implements BitOutputStreamable,AutoCloseable{
         while(bufferBitCount !=0)
             this.write(0);
         out.close();
+        if(objectOutputStream != null)
+            objectOutputStream = null;
     }
 
 }

@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 
 
-public class FileEncoderHandler implements encoderFileIO {
+public class FileEncoderHandler implements encoderFileIO<String> {
     int noOfCharacters;
     BitOutputStream bitOutStream;
     public FileEncoderHandler(int noOfCharacters, OutputStream out)

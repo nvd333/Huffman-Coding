@@ -54,7 +54,9 @@ public class TreeNode {
     public int getFrequency() {
         return this.freq;
     }
-    public int getAsciiTag() {return Integer.parseInt(label);}
+    public int getAsciiTag() {
+        if(label=="") return -1;
+        return Integer.parseInt(label);}
     public TreeNode getRight(){ return  this.right;}
     public TreeNode getLeft(){ return  this.left;}
     public boolean isLeaf() {

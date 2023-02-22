@@ -34,13 +34,16 @@ public class TopNFrequencies{
 
     }
 
-    public double calculateIdealSplit(HashMap<String,Integer> original) throws SizeLimitExceededException, IOException {
+    public double calculateIdealSplit(HashMap<String,Integer> original) throws IOException {
         double[] best = new double[]{0.0,Integer.MAX_VALUE};
         double[] currentState = new double[]{0.0,Integer.MAX_VALUE};
 
-        //TopNFrequencies topNFrequencies = new TopNFrequencies();
-        double temp = 10000;
-        double coolingRate = 0.2;
+        Object best1 = new Object(){
+            double[] best;
+            HashMap<String ,Integer> frequencyMap;
+        };
+        double temp = 3333;
+        double coolingRate = 0.33;
 
         while(temp>1)
         {
@@ -57,8 +60,6 @@ public class TopNFrequencies{
             }
             temp = temp / (1 + coolingRate * temp);
         }
-        //topNFrequencies = null;
-        System.out.println(best[1]);
         return best[0];
     }
 
@@ -73,30 +74,7 @@ public class TopNFrequencies{
 
         WordEncoder wordEncoder = new WordEncoder(newFreqMap);
         wordEncoder.initQueue(newFreqMap);
-//        PriorityQueue<TreeNode> pq = new PriorityQueue<>(new Comparator<TreeNode>() {
-//            @Override
-//            public int compare(TreeNode o1, TreeNode o2) {
-//                if(o1.getFrequency() == o2.getFrequency())
-//                    return o1.getWordLabel().compareTo(o2.getWordLabel());
-//                return  o1.getFrequency() - o2.getFrequency();
-//            }
-//        });
-//        for(String word: newFreqMap.keySet())
-//        {
-//            int freq = newFreqMap.get(word);
-//            //this.noOfWords +=freq;
-//            TreeNode leaf = new TreeNode(word,freq);
-//            pq.add(leaf);
-//        }
-//        while(pq.size()>1) {
-//            TreeNode left = pq.poll();
-//            TreeNode right = pq.poll();
-//            pq.add(new TreeNode(left,right));
-//        }
-//        TreeNode tr = pq.poll();
-
         TreeNode tr =  wordEncoder.buildHuffmanTree();
-        //TreeNode root = new TreeNode(null,null);
         WordHuffmanCodeTree wordHuffmanCodeTree = new WordHuffmanCodeTree(tr);
         HashMap<String, String> codeSet = wordHuffmanCodeTree.getHuffmanCodeSet();
         double bodyLen = 0;

@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 
-public interface encoderFileIO {
+public interface encoderFileIO<T> {
     /**
      * Writes to the Stream
      *
@@ -13,5 +13,5 @@ public interface encoderFileIO {
      * @param in    InputStream
      * @throws Exception if error is encountered
      */
-    void writeText(String binString, HashMap<?,String> huffCodeSet, InputStream in) throws Exception;
+    void writeText(T binString, HashMap<?,String> huffCodeSet, InputStream in) throws Exception;
 }

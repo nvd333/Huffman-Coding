@@ -15,10 +15,11 @@ public class WordCodeFileDecoderHandler {
         this.noOfCharacters = 0;
     }
 
-    public int readHeader() throws IOException {
-        int bitStrLen = Integer.parseUnsignedInt(bitInStream.read(32),2);
+    public HashMap<String, Integer> readHeader() throws IOException, ClassNotFoundException {
+        //int bitStrLen = Integer.parseUnsignedInt(bitInStream.read(32),2);
+        HashMap<String,Integer> frequencyMap = (HashMap<String, Integer>) bitInStream.readObject();
         this.noOfCharacters = Integer.parseUnsignedInt(bitInStream.read(32),2);
-        return bitStrLen;
+        return frequencyMap;
     }
 
     public TreeNode getBitTree2BinaryTree(int length) throws IOException, ClassNotFoundException {

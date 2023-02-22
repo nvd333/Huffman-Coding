@@ -75,7 +75,7 @@ public class Main {
 
                         //fileEncodeHandler.writeText(wordHuffmanCodeTree.HuffTreeAsBitString(tr), a, buf2);
 //woe.getFreqMapAsBitString()
-                        fileEncodeHandler.writeText(WordEncoder.getFreqMapAsBitString(splitMap), a, buf2);
+                        fileEncodeHandler.writeText(splitMap, a, buf2);
 
                     }
                 }
@@ -103,9 +103,9 @@ public class Main {
                     try (BufferedOutputStream outBuf = new BufferedOutputStream(new FileOutputStream(opFile))) {
                         WordCodeFileDecoderHandler fileDecoder = new WordCodeFileDecoderHandler(bufIn);
 
-                        int bitStrLen = fileDecoder.readHeader();
-                        HashMap<String,Integer> freqMap = fileDecoder.getBitTree2FrequencyMap(bitStrLen);
-
+//                        int bitStrLen = fileDecoder.readHeader();
+//                        HashMap<String,Integer> freqMap = fileDecoder.getBitTree2FrequencyMap(bitStrLen);
+                        HashMap<String,Integer> freqMap = fileDecoder.readHeader();
                         //
                         WordEncoder wordEncoder = new WordEncoder(freqMap);
                         wordEncoder.initQueue(freqMap);

@@ -1,12 +1,10 @@
 package org.nirvana.bitIO;
 
-import java.io.BufferedInputStream;
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class BitInputStream implements BitInputStreamable,AutoCloseable{
     protected BufferedInputStream in;
+    ObjectInputStream objectInputStream = null;
     protected int buffer;
     protected int bufferBitCount;
 
@@ -34,6 +32,8 @@ public class BitInputStream implements BitInputStreamable,AutoCloseable{
     public void close() throws IOException{
         bufferBitCount = -1;
         in.close();
+        if(objectInputStream != null)
+            objectInputStream.close();
     }
 
     /**
@@ -79,4 +79,11 @@ public class BitInputStream implements BitInputStreamable,AutoCloseable{
         }
         return bitString.toString();
     }
+
+    public Object readObject() throws IOException, ClassNotFoundException {
+        objectInputStream = new ObjectInputStream(in);
+        return objectInputStream.readObject();
+    }
+
+
 }
