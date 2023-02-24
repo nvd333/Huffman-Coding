@@ -1,5 +1,6 @@
 package org.nirvana.huffmanwords.decompression;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.nirvana.bitIO.BitInputStream;
 import org.nirvana.huffmanwords.WordHuffmanCodeTree;
 import org.nirvana.utils.TreeNode;
@@ -49,10 +50,9 @@ public class WordCodeFileDecoderHandler {
         if(current.isLeaf())
             while(this.noOfCharacters != 0 ) {
                 String word = current.getWordLabel();
-                try {
-                    int  num = Integer.parseInt(word);
-                    out.write((char)num);
-                } catch (NumberFormatException e) {
+                if(NumberUtils.isParsable(word)){
+                    out.write((char)Integer.parseInt(word));
+                }else{
                     for(char l: word.toCharArray())
                         out.write(l);
                 }

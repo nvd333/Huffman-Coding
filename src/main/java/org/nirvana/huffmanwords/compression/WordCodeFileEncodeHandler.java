@@ -40,7 +40,7 @@ public class WordCodeFileEncodeHandler implements encoderFileIO<HashMap<String,I
 
         //System.out.println("Header Length: "+((32+32+bits.length*8.0)/(8*1024*1.0))+" kb");
         //bitOutStream.write(bits.length, 32);
-        System.out.printf("Header Length  : %.5f kb\n",(SerializationUtils.serialize(freqMap).length+4.0)/1024.0);
+        System.out.printf("Header Length  : %.5f kb%n",(SerializationUtils.serialize(freqMap).length+4.0)/1024.0);
         bitOutStream.write(this.noOfCharacters,32);
 
         //bitOutStream.write(bits);
